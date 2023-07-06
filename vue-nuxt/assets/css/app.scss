@@ -1,0 +1,150 @@
+/*
+  |--------------------------------------------------------------------------
+  | Colors
+  |--------------------------------------------------------------------------
+  |
+  | Import all fonts used in the template, the font configuration can be
+  | seen in "tailwind.config.js".
+  |
+  | Please check this link for more details:
+  | https://tailwindcss.com/docs/theme
+  |
+  */
+  @import "./_colors";
+  /*
+    |--------------------------------------------------------------------------
+    | Fonts
+    |--------------------------------------------------------------------------
+    |
+    | Import all fonts used in the template, the font configuration can be
+    | seen in "tailwind.config.js".
+    |
+    | Please check this link for more details:
+    | https://tailwindcss.com/docs/theme
+    |
+    */
+  @import "./fonts/_roboto";
+  
+  /*
+    |--------------------------------------------------------------------------
+    | Mixins
+    |--------------------------------------------------------------------------
+    |
+    | Import helper mixins.
+    |
+    */
+  /* @import "@left4code/tw-starter/dist/css/mixins/_media"; */
+  
+  /*
+    |--------------------------------------------------------------------------
+    | 3rd Party Libraries
+    |--------------------------------------------------------------------------
+    |
+    | Import 3rd party library CSS/SASS files.
+    |
+    */
+  @import "./components/tw-starter/_breadcrumb";
+  // @import "./components/tw-starter/_accordion";
+  // @import "./components/tw-starter/_alert";
+  // @import "./components/tw-starter/_btn";
+  // @import "./components/tw-starter/_dropdown";
+  // @import "./components/tw-starter/_file";
+  // @import "@left4code/tw-starter/dist/css/_form-reset";
+  // @import "@left4code/tw-starter/dist/css/_form-check";
+  // @import "@left4code/tw-starter/dist/css/_form-control";
+  // @import "@left4code/tw-starter/dist/css/_form-help";
+  // @import "@left4code/tw-starter/dist/css/_form-inline";
+  // @import "@left4code/tw-starter/dist/css/_form-label";
+  // @import "@left4code/tw-starter/dist/css/_form-select";
+  // @import "@left4code/tw-starter/dist/css/_image-fit";
+  // @import "@left4code/tw-starter/dist/css/_input-group";
+  // @import "@left4code/tw-starter/dist/css/_intro";
+  // @import "@left4code/tw-starter/dist/css/_modal";
+  // @import "@left4code/tw-starter/dist/css/_pagination";
+  // @import "@left4code/tw-starter/dist/css/_progress";
+  // @import "@left4code/tw-starter/dist/css/_scrollbar";
+  // @import "@left4code/tw-starter/dist/css/_tab";
+  // @import "@left4code/tw-starter/dist/css/_table";
+  // @import "@left4code/tw-starter/dist/css/_typing-dots";
+  // @import "@left4code/tw-starter/dist/css/_zoom-in";
+  // @import "@left4code/tw-starter/dist/css/_box";
+  // @import "highlight.js/styles/github";
+  // @import "tippy.js/dist/tippy";
+  // @import "tippy.js/themes/light";
+  // @import "tippy.js/dist/svg-arrow";
+  // @import "tippy.js/animations/shift-away";
+  // @import "toastify-js/src/toastify";
+  // @import "dropzone/dist/dropzone";
+  // @import "zoom-vanilla.js/dist/zoom";
+  // @import "tabulator-tables/dist/css/tabulator";
+  // @import "tom-select/dist/css/tom-select";
+  // @import "tiny-slider/dist/tiny-slider";
+  // @import "simplebar/src/simplebar";
+  
+  /*
+    |--------------------------------------------------------------------------
+    | Components
+    |--------------------------------------------------------------------------
+    |
+    | Import CSS components.
+    |
+    */
+  @import "./components/_global";
+   @import "./components/_top-bar";
+  //  @import "./components/_login";
+  //  @import "./components/_table-report";
+  //  @import "./components/_report-chart";
+   @import "./components/_search";
+  //  @import "./components/_notification";
+  //  @import "./components/_report-box";
+  //  @import "./components/_report-box-2";
+  //  @import "./components/_report-box-3";
+  //  @import "./components/_report-box-4";
+   @import "./components/_content";
+  //  @import "./components/_top-nav";
+  @import "./components/_side-nav";
+  @import "./components/_breadcrumb";
+  //  @import "./components/_toastify";
+  //  @import "./components/_toastify-content";
+  @import "./components/_lucide-icon";
+  //  @import "./components/_top-bar-boxed";
+  //  @import "./components/_mobile-menu";
+  //  @import "./components/_inbox-filter";
+  //  @import "./components/_inbox";
+  //  @import "./components/_chat";
+  //  @import "./components/_chat-dropdown";
+  //  @import "./components/_news";
+  //  @import "./components/_pricing-tabs";
+  //  @import "./components/_error-page";
+   @import "./components/_search-result";
+  //  @import "./components/_notification-content";
+  //  @import "./components/_report-maps";
+  //  @import "./components/_pos-dropdown";
+  //  @import "./components/_post";
+  //  @import "./components/_litepicker";
+  //  @import "./components/_tiny-slider";
+  //  @import "./components/_tippy";
+  //  @import "./components/_tabulator";
+  //  @import "./components/_tom-select";
+  //  @import "./components/_dropzone";
+  //  @import "./components/_ckeditor";
+  //  @import "./components/_zoom-vanilla";
+  //  @import "./components/_dark-mode-switcher";
+  //  @import "./components/_hljs";
+  //  @import "./components/_source-preview";
+  //  @import "./components/_full-calendar";
+  //  @import "./components/_pristine"; 
+  
+  
+  /*
+   |--------------------------------------------------------------------------
+   | TailwindCSS Directives
+   |--------------------------------------------------------------------------
+   |
+   | Import TailwindCSS directives and swipe out at build-time with all of
+   | the styles it generates based on your configured design system.
+   |
+   | Please check this link for more details:
+   | https://tailwindcss.com/docs/installation#include-tailwind-in-your-css
+   |
+   */
