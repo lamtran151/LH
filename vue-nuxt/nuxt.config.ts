@@ -4,14 +4,14 @@ export default defineNuxtConfig({
   css: [
     '@/assets/css/_tailwind.css',
     '@/assets/css/app.scss',
-],
-postcss: {
-  plugins: {
+  ],
+  postcss: {
+    plugins: {
       tailwindcss: {},
       autoprefixer: {},
       "postcss-import": {},
       "postcss-advanced-variables": {},
       "tailwindcss/nesting": {}
+    },
   },
-},
 })
