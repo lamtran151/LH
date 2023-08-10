@@ -104,11 +104,17 @@
     &.show {
       > .modal-dialog {
         .modal-content > [data-tw-dismiss="modal"] {
-          @include media-breakpoint-down(sm) {
-            @apply -ml-10;
-          }
+          // @include media-breakpoint-down(sm) {
+          //   @apply -ml-10;
+          // }
         }
       }
     }
   }
+}
+.openModal{
+  margin-top: 0px;
+  margin-left: 0px;
+  padding-left: 0px;
+  z-index: 10000;
 }

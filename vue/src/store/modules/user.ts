@@ -29,6 +29,7 @@ class UserModule extends ListModule<UserState,any,User>{
             context.state.loading=true;
             let reponse=await Ajax.get('/api/services/app/User/GetAll',{params:payload.data});
             context.state.loading=false;
+            debugger
             let page=reponse.data.result as PageResult<User>;
             context.state.totalCount=page.totalCount;
             context.state.list=page.items;

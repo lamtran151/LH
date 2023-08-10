@@ -11,12 +11,12 @@
 }
 
 .form-inline {
-  @include media-breakpoint-down(sm) {
-    @apply block;
-  }
-  .form-label {
-    @include media-breakpoint-down(sm) {
-      @apply mb-2 mr-0 text-left;
-    }
-  }
+  // @include media-breakpoint-down(sm) {
+  //   @apply block;
+  // }
+  // .form-label {
+  //   @include media-breakpoint-down(sm) {
+  //     @apply mb-2 mr-0 text-left;
+  //   }
+  // }
 }

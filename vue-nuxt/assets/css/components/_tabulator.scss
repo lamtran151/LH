@@ -62,14 +62,14 @@
     }
     .tabulator-footer {
         @apply bg-transparent border-t-0 p-0 mt-2;
-        @include media-breakpoint-down(md) {
-            @apply whitespace-normal;
-        }
+        // @include media-breakpoint-down(md) {
+        //     @apply whitespace-normal;
+        // }
         .tabulator-paginator {
             @apply flex items-center;
-            @include media-breakpoint-down(md) {
-                @apply block text-left;
-            }
+            // @include media-breakpoint-down(md) {
+            //     @apply block text-left;
+            // }
             > label {
                 @apply font-normal text-slate-700;
             }
@@ -78,16 +78,16 @@
                 background-size: 15px;
                 background-position: center right 0.6rem;
                 @apply py-2 pl-3 pr-8 ml-2 mr-auto rounded-md appearance-none bg-white border-slate-200 bg-no-repeat;
-                @include media-breakpoint-down(md) {
-                    @apply mr-3;
-                }
+                // @include media-breakpoint-down(md) {
+                //     @apply mr-3;
+                // }
             }
             .tabulator-page {
                 min-width: 40px;
                 @apply btn font-normal inline-flex items-center justify-center border-transparent text-slate-700;
-                @include media-breakpoint-down(sm) {
-                    @apply mr-0 px-1;
-                }
+                // @include media-breakpoint-down(sm) {
+                //     @apply mr-0 px-1;
+                // }
                 &:hover {
                     @apply bg-slate-200 text-slate-700;
                 }
@@ -191,4 +191,7 @@
             }
         }
     }
+}
+.tabulator .tabulator-header .tabulator-header-contents .tabulator-headers{
+    display: block;
 }

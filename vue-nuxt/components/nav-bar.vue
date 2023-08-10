@@ -695,13 +695,5 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue,Inject,Prop,Emit } from 'vue-property-decorator';
-    export default class ShrinkableMenu extends Vue {
-        @Emit('on-change')
-        handleChange(name:string){
-            debugger
-            
-        }
-    }
     
 </script>
