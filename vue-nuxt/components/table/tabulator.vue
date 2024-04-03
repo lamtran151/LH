@@ -7,6 +7,8 @@ const tabulator = ref(null); //variable to hold your table
 const props = defineProps({
   tableColumn: Object,
   ajaxUrl: String,
+  method: String,
+  params: Object
 });
 console.log(props.tableColumn);
 onMounted(() => {
@@ -20,9 +22,11 @@ onMounted(() => {
         ".AspNetCore.Culture": window.abp.utils.getCookieValue(
           "Abp.Localization.CultureName"
         ),
-        "Abp.TenantId": window.abp.multiTenancy.getTenantIdCookie(),
+        "Content-Type": "application/json"
       },
+      method: props.method
     },
+    ajaxParams: props.params,
     reactiveData: true, //enable data reactivity
     columns: props.tableColumn, //define table columns
     layout: "fitColumns",

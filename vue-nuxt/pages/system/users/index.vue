@@ -326,7 +326,9 @@ function editItem(e: any, cell: any) {
         <!-- ... -->
         <TableTabulator
           :table-column="tableColumn"
-          :ajax-url="'/api/services/app/User/GetAll'"
+          :ajax-url="'/api/User/GetAll'"
+          :method="'POST'"
+          :params="'{}'"
         ></TableTabulator>
         <template #fallback>
           <!-- this will be rendered on server side -->

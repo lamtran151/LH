@@ -1,6 +1,6 @@
 import appconst from './appconst'
 class Util{
-    abp:any=window.abp;
+    // abp:any=window.abp;
     loadScript(url:string){
         var script=document.createElement('script');
         script.type="text/javascript";
@@ -39,7 +39,6 @@ class Util{
         if (!path || !routers || !routers.length) {
             return null;
         }
-        debugger;
         let routerObj = null;
         for (let item of routers) {
             if (item.name === name) {

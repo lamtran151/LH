@@ -4,7 +4,7 @@ const AppConsts= {
         defaultAdminUserName: 'admin'
     },
     localization:{
-        defaultLocalizationSourceName: 'LH'
+        defaultLocalizationSourceName: 'PAS'
     },
     authorization:{
         encrptedAuthTokenName: 'enc_auth_token'
