@@ -16,7 +16,6 @@ const RouterConfig = {
 export const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
-    debugger
     iView.LoadingBar.start();
     Util.title(to.meta.title);
     if (Cookies.get('locking') === '1' && to.name !== 'locking') {

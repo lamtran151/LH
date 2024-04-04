@@ -43,7 +43,6 @@ export default class ShrinkableMenu extends Vue {
     }
     @Emit('on-change')
     handleChange(name:string){
-        debugger
         let willpush = true;
         if (this.beforePush !== undefined) {
             if (!this.beforePush(name)) {
