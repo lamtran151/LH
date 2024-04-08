@@ -28,7 +28,17 @@ export default defineNuxtConfig({
   modules: [
     // ...
     "@pinia/nuxt",
+    "@vee-validate/nuxt"
   ],
+  veeValidate: {
+    autoImports: true,
+    componentNames: {
+      Form: 'VeeForm',
+      Field: 'VeeField',
+      FieldArray: 'VeeFieldArray',
+      ErrorMessage: 'VeeErrorMessage',
+    },
+  },
   plugins: [
     { mode: 'client', src: 'plugins/main' }
   ],

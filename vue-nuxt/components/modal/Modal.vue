@@ -31,7 +31,7 @@ const handleActionClick = (action:any) => {
     :aria-hidden="true"
     style="margin-top: 0px; margin-left: 0px; padding-left: 0px; z-index: 10000"
   >
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <!-- BEGIN: Modal Header -->
         <div class="modal-header">
@@ -54,7 +54,7 @@ const handleActionClick = (action:any) => {
         </div>
         <!-- END: Modal Header -->
         <!-- BEGIN: Modal Body -->
-        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+        <div class="modal-body grid gap-4 gap-y-3">
           <component v-if="modal.isOpen" :is="view" v-model="model"></component>
         </div>
         <!-- END: Modal Body -->
