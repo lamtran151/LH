@@ -1,6 +1,6 @@
 import appconst from './appconst'
 class Util{
-    // abp:any=window.abp;
+    abp:any=window.abp;
     loadScript(url:string){
         var script=document.createElement('script');
         script.type="text/javascript";

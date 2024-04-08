@@ -31,5 +31,5 @@ export default defineNuxtConfig({
   ],
   plugins: [
     { mode: 'client', src: 'plugins/main' }
-  ]
+  ],
 });

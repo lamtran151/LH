@@ -3,7 +3,22 @@ import sidebarItem from 'store/data/sidebarItem';
 import Util from '../lib/util';
 
 export default defineNuxtRouteMiddleware((to, from) => {
-    console.log(from);
+  debugger
+  if (to.params.id === '1') {
+    return abortNavigation()
+  }
+  if(process.client){
+    if (!window?.abp?.auth?.getToken() && to.path !== '/auth/login') {
+      return navigateTo('/auth/login')
+    }
+  }
+  
+    // if(!window.abp.auth.getToken() && to.path !== '/auth/login'){
+    //   return navigateTo('/auth/login',)
+    // }
+    // else if(!window.abp.auth.getToken() && to.path !== "/"){
+    //   return navigateTo('/')
+    // }
     // sidebarItem.filter(x=>!x.submenu).forEach(element => {
     //   if(element.url == to.path){
     //     permissionName = element.submenu

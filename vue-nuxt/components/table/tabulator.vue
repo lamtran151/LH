@@ -10,6 +10,7 @@ const props = defineProps({
   method: String,
   params: Object
 });
+var params = ref(props.params);
 console.log(props.tableColumn);
 onMounted(() => {
   //instantiate Tabulator when element is mounted
@@ -21,26 +22,35 @@ onMounted(() => {
         Authorization: "Bearer " + window.abp.auth.getToken(),
         ".AspNetCore.Culture": window.abp.utils.getCookieValue(
           "Abp.Localization.CultureName"
-        ),
-        "Content-Type": "application/json"
+        )
       },
       method: props.method
     },
-    ajaxParams: props.params,
+    ajaxContentType: "json",
+    ajaxParams: params,
     reactiveData: true, //enable data reactivity
     columns: props.tableColumn, //define table columns
     layout: "fitColumns",
     responsiveLayout: "collapse",
     placeholder: "No matching records found",
-    pagination: "remote",
+    pagination: true,
+    paginationMode: "remote",
     paginationSize: 10,
     paginationSizeSelector: [10, 25, 50, 100],
+    ajaxURLGenerator: function (url, config, params) {
+      params["skipCount"] = (params.page - 1) * params.size;
+      params["maxResultCount"] = params.size;
+      return url;
+    },
     ajaxResponse: function (url, params, response) {
       //url - the URL of the request
       //params - the parameters passed with the request
       //response - the JSON object returned in the body of the response.
-
-      return response.result.items; //pass the data array into Tabulator
+      let last_page = Math.ceil(response.result.totalCount / params.size);
+      return {
+        data: response.result.items,
+        last_page,
+      };
     },
   });
 });

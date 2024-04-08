@@ -17,7 +17,6 @@ const user = ref({
 const router = useRouter();
 
 const login = async () => {
-    debugger
   await authenticateUser(user.value);
   // redirect to homepage if user is authenticated
   if (authenticated) {
@@ -26,7 +25,8 @@ const login = async () => {
 };
 </script>
 <template>
-    <div class="login">
+    <ClientOnly>
+        <div class="login">
         <div class="container sm:px-10">
             <div class="block xl:grid grid-cols-2 gap-4">
                 <!-- BEGIN: Login Info -->
@@ -74,5 +74,7 @@ const login = async () => {
             </div>
         </div>
     </div>
+    </ClientOnly>
+    
     
 </template>

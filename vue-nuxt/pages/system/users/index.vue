@@ -130,6 +130,9 @@ const tableColumn = [
   },
 ];
 
+var param = {
+}
+
 function editItem(e: any, cell: any) {
   
   // Xử lý sự kiện khi nút "Edit" được click trong Tabulator
@@ -328,7 +331,7 @@ function editItem(e: any, cell: any) {
           :table-column="tableColumn"
           :ajax-url="'/api/User/GetAll'"
           :method="'POST'"
-          :params="'{}'"
+          :params="param"
         ></TableTabulator>
         <template #fallback>
           <!-- this will be rendered on server side -->
