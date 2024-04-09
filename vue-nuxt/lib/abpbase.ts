@@ -14,6 +14,7 @@ export const abpBase = () =>{
     const hasAnyOfPermissions = (...argus:string[]) => {
         return window.abp.auth.hasAnyOfPermissions(...argus);
     }
+
     const hasAllOfPermissions = (...argus:string[]) => {
         return window.abp.auth.hasAllOfPermissions(...argus);
     }

@@ -1,10 +1,17 @@
+<script setup lang="ts">
+    const isOpen = ref(false)
+    const toggleDropdown = () => {
+        debugger
+        isOpen.value = !isOpen.value
+    }
+</script>
 <template>
     <div class="intro-x dropdown w-8 h-8">
                 <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
-                    role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                    <img alt="Midone - HTML Admin Template" src="dist/images/profile-5.jpg">
+                    role="button" aria-expanded="false" data-tw-toggle="dropdown" @click="toggleDropdown">
+                    <img alt="Midone - HTML Admin Template" src="/images/profile-5.jpg">
                 </div>
-                <div class="dropdown-menu w-56">
+                <div class="dropdown-menu w-56" v-if="isOpen">
                     <ul
                         class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
                         <li class="p-2">
