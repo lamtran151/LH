@@ -854,6 +854,11 @@ var abp = abp || {};
         return new Date(targetTime);
     };
 
+    abp.timing.convertLuxonTime = function (datetime, date, format = "dd/MM/y HH:mm:ss") {
+        var time = datetime.fromISO(date, { zone: 'UTC' }).setZone('Asia/Bangkok').toFormat(format)
+        return time
+    };
+
     /* CLOCK *****************************************/
     abp.clock = abp.clock || {};
 

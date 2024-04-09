@@ -1,36 +1,55 @@
 <script lang="ts" setup>
+  import ajax from 'lib/ajax';
+import CreateUser from '../../../store/entities/users/CreateUser';
+
+  const createUser = reactive(new CreateUser());
+
 </script>
 <template>
   <Tab>
     <TabItem title="Tab 1" id="example-5">
       <!-- BEGIN: Validation Form -->
       <form class="validate-form">
-        <div class="input-form"> <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row"> Name
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required, at least 2 characters</span> </label>
-          <input id="validation-form-1" type="text" name="name" class="form-control" placeholder="John Legend"
-            minlength="2" required>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="input-form">
+            <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
+              Username
+            </label>
+            <input id="userName" v-model="createUser.UserName" type="text" name="userName" class="form-control"
+              placeholder="John Legend">
+          </div>
+          <div class="input-form">
+            <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
+              Name
+            </label>
+            <input id="name" type="text" name="name" class="form-control" placeholder="John Legend">
+          </div>
+          <div class="input-form">
+            <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
+              Surname
+            </label>
+            <input id="surname" type="text" name="surname" class="form-control" placeholder="John Legend">
+          </div>
+          <div class="input-form">
+            <label for="email" class="form-label w-full flex flex-col sm:flex-row">
+              Email Address
+            </label>
+            <input id="email" type="text" name="email" class="form-control" placeholder="John Legend">
+          </div>
+          <div class="input-form">
+            <label for="password" class="form-label w-full flex flex-col sm:flex-row">
+              Password
+            </label>
+            <input id="password" type="text" name="password" class="form-control" placeholder="John Legend">
+          </div>
+          <div class="input-form">
+            <label for="confirmPassword" class="form-label w-full flex flex-col sm:flex-row">
+              Confirm Password
+            </label>
+            <input id="confirmPassword" type="text" name="confirmPassword" class="form-control"
+              placeholder="John Legend">
+          </div>
         </div>
-        <div class="input-form mt-3"> <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
-            Email <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required, email address format</span>
-          </label> <input id="validation-form-2" type="email" name="email" class="form-control"
-            placeholder="example@gmail.com" required> </div>
-        <div class="input-form mt-3"> <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
-            Password <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required, at least 6 characters</span>
-          </label> <input id="validation-form-3" type="password" name="password" class="form-control" placeholder="secret"
-            minlength="6" required> </div>
-        <div class="input-form mt-3"> <label for="validation-form-4" class="form-label w-full flex flex-col sm:flex-row">
-            Age <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required, integer only & maximum 3
-              characters</span> </label> <input id="validation-form-4" type="number" name="age" class="form-control"
-            placeholder="21" required> </div>
-        <div class="input-form mt-3"> <label for="validation-form-5" class="form-label w-full flex flex-col sm:flex-row">
-            Profile URL <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Optional, URL format</span> </label>
-          <input id="validation-form-5" type="url" name="url" class="form-control" placeholder="https://google.com">
-        </div>
-        <div class="input-form mt-3"> <label for="validation-form-6" class="form-label w-full flex flex-col sm:flex-row">
-            Comment <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required, at least 10 characters</span>
-          </label> <textarea id="validation-form-6" class="form-control" name="comment" placeholder="Type your comments"
-            minlength="10" required></textarea> </div> <button type="submit"
-          class="btn btn-primary mt-5">Register</button>
       </form> <!-- END: Validation Form -->
       <!-- BEGIN: Success Notification Content -->
       <div id="success-notification-content" class="toastify-content hidden flex"> <i class="text-success"
@@ -52,5 +71,3 @@
     <TabItem title="Tab 2" id="example-6">ok2</TabItem>
   </Tab>
 </template>
-
-

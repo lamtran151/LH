@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 declare namespace abp {
 
     let appPath: string;
@@ -438,6 +440,8 @@ declare namespace abp {
         const unspecifiedClockProvider: IClockProvider;
 
         function convertToUserTimezone(date: Date): Date;
+
+        function convertLuxonTime(datetime: DateTime, date: string, format: string) : string;
 
         let timeZoneInfo: ITimeZoneInfo;
     }

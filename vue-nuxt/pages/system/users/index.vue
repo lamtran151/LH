@@ -5,6 +5,8 @@ import PageResult from "@/store/entities/page-result";
 import User from "~/store/entities/user";
 import Icon from "../../../components/custom/Icon.vue";
 import openModal, { Components } from "~/composables/openModal";
+import {DateTime} from 'luxon'
+window.DateTime = DateTime
 class PageUserRequest extends PageRequest {
   keyword: string;
   isActive: boolean = true;
@@ -64,13 +66,7 @@ const tableColumn = [
     hozAlign: "center",
     vertAlign: "middle",
     headerHozAlign: "center",
-    // formatter: "datetime",
-    // formatterParams: {
-    //   inputFormat: "iso",
-    //   outputFormat: "DD/MM/YYYY",
-    //   invalidPlaceholder: "(invalid date)",
-    //   timezone: "America/Los_Angeles",
-    // },
+    formatter: (cell:any) => window.abp.timing.convertLuxonTime(DateTime, cell.getValue())
   },
   {
     title: "ACTIONS",
@@ -134,7 +130,6 @@ var param = {
 }
 
 function editItem(e: any, cell: any) {
-  
   // Xử lý sự kiện khi nút "Edit" được click trong Tabulator
   console.log("Edit item:", cell.getRow().getData());
 }
@@ -348,7 +343,7 @@ function editItem(e: any, cell: any) {
 
   <!-- BEGIN: Users Layout -->
   <Modal @save="editItem">
-    <template v-slot:title> Modal Header </template>
+    <template v-slot:title></template>
   </Modal>
   <div ref="checkSquare" v-show="false">
     <LazyCustomIcon name="CheckSquare" class="w-4 h-4 mr-1" stroke-width="1.5"/>

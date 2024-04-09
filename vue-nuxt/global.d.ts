@@ -2,6 +2,7 @@ export {}
 
 declare global {
   interface Window {
-    abp: any
+    abp: any,
+    DateTime: any 
   }
 }

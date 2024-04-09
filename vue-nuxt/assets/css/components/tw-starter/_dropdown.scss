@@ -6,10 +6,12 @@
   }
   .dropdown-menu {
     z-index: 9999;
-    inset: 0px auto auto 0px;
+    inset: auto auto 0px 0px;
     transition: visibility 0s ease-in-out 0.2s, opacity 0.2s 0s;
     @apply invisible opacity-0 absolute;
     &.show {
+      inset: 0px 0px auto auto;
+      transform: translate3d(0px, 44px, 0px) !important;
       transition: visibility 0s ease-in-out 0s, opacity 0.2s 0s;
       @apply visible opacity-100;
       > .dropdown-content {

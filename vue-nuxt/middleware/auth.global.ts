@@ -17,7 +17,6 @@ function findElementByUrl(url: string, items: any) {
   return null;
 }
 export default defineNuxtRouteMiddleware((to, from) => {
-  debugger;
   if (to.matched.length === 0) {
     return navigateTo("/auth/404", { redirectCode: 301 });
   }

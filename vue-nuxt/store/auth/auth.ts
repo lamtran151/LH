@@ -26,7 +26,7 @@ export const useAuthStore = defineStore("auth", {
         appconst.authorization.encrptedAuthTokenName,
         rep.data.result.encryptedAccessToken,
         new Date(new Date().getTime() + 1000 * rep.data.result.expireInSeconds),
-        abp.appPath
+        window.abp.appPath
       );
       if (process.client) {
         await ajax.get("/api/PASUserConfiguration/GetAll").then((data) => {

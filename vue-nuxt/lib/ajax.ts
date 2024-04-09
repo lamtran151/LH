@@ -6,14 +6,14 @@ const ajax = axios.create({
 });
 ajax.interceptors.request.use(
   function (config) {
-    if (!!abp.auth.getToken()) {
+    if (!!window.abp.auth.getToken()) {
       config.headers.common["Authorization"] =
-        "Bearer " + abp.auth.getToken();
+        "Bearer " + window.abp.auth.getToken();
     }
     config.headers.common[".AspNetCore.Culture"] =
-      abp.utils.getCookieValue("Abp.Localization.CultureName");
+    window.abp.utils.getCookieValue("Abp.Localization.CultureName");
     config.headers.common["Abp.TenantId"] =
-      abp.multiTenancy.getTenantIdCookie();
+    window.abp.multiTenancy.getTenantIdCookie();
     return config;
   },
   function (error) {
