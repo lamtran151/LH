@@ -1,26 +1,19 @@
 <template>
-    <component
-      :is="icon"
-      :size="size"
-      :color="color"
-      :class="class"
-      :stroke-width="strokeWidth"
-    />
-  </template>
-  
-  <script setup lang="ts">
-  import * as icons from "lucide-vue-next";
-  
-  const props = defineProps({
-    name: {
-      type: String,
-      required: true,
-    },
-    size: Number,
-    color: String,
-    class: String,
-    strokeWidth: String,
-  });
-  const icon = computed(() => icons[props.name as keyof typeof icons]);
-  </script>
-  
+    <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
+        Username
+    </label>
+    <input id="userName" @change="$bus.$emit('clickEvent', createUser)" type="text" name="userName" class="form-control"
+        placeholder="John Legend">
+</template>
+
+<script setup lang="ts">
+const props = defineProps({
+    classLabel: String,
+    id: String,
+    type: String,
+    name: String,
+    classInput: String,
+    placeholder: String
+});
+const { $bus } = useNuxtApp() as unknown as NuxtBus
+</script>
