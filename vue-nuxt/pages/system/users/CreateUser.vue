@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-  import ajax from 'lib/ajax';
 import CreateUser from '../../../store/entities/users/CreateUser';
 
-  const createUser = reactive(new CreateUser());
+const createUser = reactive(new CreateUser());
+const { $bus } = useNuxtApp() as unknown as NuxtBus
+
+const test = () => {
+  $bus.$emit('clickEvent', createUser)
+}
 
 </script>
 <template>
@@ -15,8 +19,8 @@ import CreateUser from '../../../store/entities/users/CreateUser';
             <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
               Username
             </label>
-            <input id="userName" v-model="createUser.UserName" type="text" name="userName" class="form-control"
-              placeholder="John Legend">
+            <input id="userName" v-model="createUser.UserName" @change="test" type="text" name="userName"
+              class="form-control" placeholder="John Legend">
           </div>
           <div class="input-form">
             <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">

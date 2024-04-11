@@ -20,9 +20,15 @@ function handleOnClickOpenModal(component: Components) {
 let pagerequest: any = new PageUserRequest();
 const checkSquare = ref();
 const trash = ref();
+var createUser = ref();
 onMounted(() => {
-  
-  console.log(checkSquare.value["innerHTML"]);
+  const { $bus } = useNuxtApp() as unknown as NuxtBus
+
+  $bus.$on('clickEvent', (data: any) => {
+     // do whatever you want with data 
+     createUser = data;
+ })
+  // console.log(checkSquare.value["innerHTML"]);
 });
 const tableColumn = [
   {

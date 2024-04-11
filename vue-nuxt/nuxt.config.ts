@@ -40,6 +40,7 @@ export default defineNuxtConfig({
     },
   },
   plugins: [
-    { mode: 'client', src: 'plugins/main' }
+    { mode: 'client', src: 'plugins/main' },
+    { mode: 'client', src: 'plugins/useEmitter' }
   ],
 });
