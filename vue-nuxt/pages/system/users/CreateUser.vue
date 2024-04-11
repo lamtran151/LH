@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import InputCheckbox from '../../../components/form/InputCheckbox.vue';
+import InputText from '../../../components/form/InputText.vue';
 import CreateUser from '../../../store/entities/users/CreateUser';
 
 const createUser = reactive(new CreateUser());
@@ -16,42 +18,32 @@ const test = () => {
       <form class="validate-form">
         <div class="grid grid-cols-2 gap-2">
           <div class="input-form">
-            <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
-              Username
-            </label>
-            <input id="userName" v-model="createUser.UserName" @change="test" type="text" name="userName"
-              class="form-control" placeholder="John Legend">
+            <InputText v-model="createUser.UserName" id="userName" label-name="UserName" placeholder="UserName"
+              :entity="createUser" name="userName" />
           </div>
           <div class="input-form">
-            <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
-              Name
-            </label>
-            <input id="name" type="text" name="name" class="form-control" placeholder="John Legend">
+            <InputText v-model="createUser.Name" id="name" label-name="Name" placeholder="Name" :entity="createUser"
+              name="name" />
           </div>
           <div class="input-form">
-            <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
-              Surname
-            </label>
-            <input id="surname" type="text" name="surname" class="form-control" placeholder="John Legend">
+            <InputText v-model="createUser.Surname" id="surname" label-name="Surname" placeholder="Surname"
+              :entity="createUser" name="surname" />
           </div>
           <div class="input-form">
-            <label for="email" class="form-label w-full flex flex-col sm:flex-row">
-              Email Address
-            </label>
-            <input id="email" type="text" name="email" class="form-control" placeholder="John Legend">
+            <InputText v-model="createUser.EmailAddress" id="emailAddress" label-name="EmailAddress"
+              placeholder="EmailAddress" :entity="createUser" name="emailAddress" />
           </div>
           <div class="input-form">
-            <label for="password" class="form-label w-full flex flex-col sm:flex-row">
-              Password
-            </label>
-            <input id="password" type="text" name="password" class="form-control" placeholder="John Legend">
+            <InputText v-model="createUser.Password" id="password" label-name="Password" placeholder="Password"
+              :entity="createUser" name="password" />
           </div>
           <div class="input-form">
-            <label for="confirmPassword" class="form-label w-full flex flex-col sm:flex-row">
-              Confirm Password
-            </label>
-            <input id="confirmPassword" type="text" name="confirmPassword" class="form-control"
-              placeholder="John Legend">
+            <InputText v-model="createUser.ConfirmPassword" id="confirmPassword" label-name="ConfirmPassword"
+              placeholder="confirmPassword" :entity="createUser" name="confirmPassword" />
+          </div>
+          <div class="input-form">
+            <InputCheckbox v-model="createUser.IsActive" id="isActive" label-name="Active"
+              :entity="createUser"/>
           </div>
         </div>
       </form> <!-- END: Validation Form -->

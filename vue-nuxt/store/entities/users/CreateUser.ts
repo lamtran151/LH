@@ -6,4 +6,5 @@ export default class CreateUser {
     IsActive: boolean;
     RoleNames: string[];
     Password: string;
+    ConfirmPassword: string;
 }

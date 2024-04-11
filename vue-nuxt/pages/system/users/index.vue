@@ -17,18 +17,16 @@ function handleOnClickOpenModal(component: Components) {
   showModal.value = !showModal.value;
   openModal(component);
 }
-let pagerequest: any = new PageUserRequest();
+let pageRequest: any = new PageUserRequest();
 const checkSquare = ref();
 const trash = ref();
-var createUser = ref();
+let createUser = ref();
 onMounted(() => {
   const { $bus } = useNuxtApp() as unknown as NuxtBus
-
-  $bus.$on('clickEvent', (data: any) => {
+  $bus.$on('changeInput', (data: any) => {
      // do whatever you want with data 
      createUser = data;
  })
-  // console.log(checkSquare.value["innerHTML"]);
 });
 const tableColumn = [
   {
@@ -132,12 +130,10 @@ const tableColumn = [
   },
 ];
 
-var param = {
-}
 
-function editItem(e: any, cell: any) {
+function save() {
   // Xử lý sự kiện khi nút "Edit" được click trong Tabulator
-  console.log("Edit item:", cell.getRow().getData());
+  debugger
 }
 // const fetchData = async () => {
 //   pagerequest.maxResultCount = data.value.limit;
@@ -332,7 +328,7 @@ function editItem(e: any, cell: any) {
           :table-column="tableColumn"
           :ajax-url="'/api/User/GetAll'"
           :method="'POST'"
-          :params="param"
+          :params="pageRequest"
         ></TableTabulator>
         <template #fallback>
           <!-- this will be rendered on server side -->
@@ -348,7 +344,7 @@ function editItem(e: any, cell: any) {
   </div>
 
   <!-- BEGIN: Users Layout -->
-  <Modal @save="editItem">
+  <Modal @save="save">
     <template v-slot:title></template>
   </Modal>
   <div ref="checkSquare" v-show="false">
