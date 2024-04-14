@@ -2,13 +2,23 @@
 import InputCheckbox from '../../../components/form/InputCheckbox.vue';
 import InputText from '../../../components/form/InputText.vue';
 import CreateUser from '../../../store/entities/users/CreateUser';
+import { storeToRefs } from 'pinia';
+import { useUserStore } from '../../../store/modules/user';
 
 const createUser = reactive(new CreateUser());
 const { $bus } = useNuxtApp() as unknown as NuxtBus
 
+const { getRoles } = useUserStore(); // use auth store
+
+const { roles } = storeToRefs(useUserStore());
+
 const test = () => {
   $bus.$emit('clickEvent', createUser)
 }
+
+onMounted(async () => {
+  await getRoles();
+});
 
 </script>
 <template>
@@ -42,8 +52,7 @@ const test = () => {
               placeholder="confirmPassword" :entity="createUser" name="confirmPassword" />
           </div>
           <div class="input-form">
-            <InputCheckbox v-model="createUser.IsActive" id="isActive" label-name="Active"
-              :entity="createUser"/>
+            <InputCheckbox v-model="createUser.IsActive" id="isActive" label-name="IsActive" :entity="createUser" />
           </div>
         </div>
       </form> <!-- END: Validation Form -->
@@ -64,6 +73,18 @@ const test = () => {
         </div>
       </div> <!-- END: Failed Notification Content -->
     </TabItem>
-    <TabItem title="Tab 2" id="example-6">ok2</TabItem>
+    <TabItem title="Tab 2" id="example-6">
+      <form class="validate-form">
+        <div class="grid grid-cols-2 gap-2">
+          <div class="input-form">
+            <template v-for="role in roles">
+              <InputCheckbox v-model="createUser.RoleNames" :id="'role' + role.id" :value="role.name"
+                :label-name="role.displayName" :is-multiple="true" name="RoleNames" :entity="createUser" />
+            </template>
+
+          </div>
+        </div>
+      </form> <!-- END: Validation Form -->
+    </TabItem>
   </Tab>
 </template>

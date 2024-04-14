@@ -26,16 +26,16 @@ export default function openModal(passingComponent: Components): void {
         label: "Close",
         buttonClass: "btn-outline-secondary mr-1",
         callback: (emit: (event: string, payload?: any) => void) => {
-          modal.close();
           emit('close', /* optional payload */);
+          modal.close();
         },
       },
       {
         label: "Send",
         buttonClass: "btn-primary",
-        callback: (emit: (event: string, payload?: any) => void) => {
-          modal.close();
-          emit('save', /* optional payload */);
+        callback: async (emit: (event: string, payload?: any) => void) => {
+          await emit('save', /* optional payload */);
+          // modal.close();
         },
       },
     ],

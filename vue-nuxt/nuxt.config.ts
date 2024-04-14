@@ -28,7 +28,21 @@ export default defineNuxtConfig({
   modules: [
     // ...
     "@pinia/nuxt",
-    "@vee-validate/nuxt"
+    ["@vee-validate/nuxt",
+      {
+        // disable or enable auto imports
+        autoImports: true,
+        // Use different names for components
+        componentNames: {
+          Form: 'VeeForm',
+          Field: 'VeeField',
+          FieldArray: 'VeeFieldArray',
+          ErrorMessage: 'VeeErrorMessage',
+        },
+      },
+    ],
+
+    "@tailvue/nuxt"
   ],
   veeValidate: {
     autoImports: true,

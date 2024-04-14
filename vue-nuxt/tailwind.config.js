@@ -13,6 +13,7 @@ module.exports = {
     "./lib/**/*.{js,ts}",
     "./nuxt.config.{js,ts}",
     "./app.vue",
+    "node_modules/tailvue/dist/tailvue.es.js",
   ],
   darkMode: "class",
   theme: {

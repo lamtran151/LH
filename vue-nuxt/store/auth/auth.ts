@@ -28,6 +28,7 @@ export const useAuthStore = defineStore("auth", {
         new Date(new Date().getTime() + 1000 * rep.data.result.expireInSeconds),
         window.abp.appPath
       );
+      this.authenticated = true;
       if (process.client) {
         await ajax.get("/api/PASUserConfiguration/GetAll").then((data) => {
           Util.abp = Util.extend(true, Util?.abp, data.data.result);

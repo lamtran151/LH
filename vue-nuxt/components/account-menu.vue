@@ -8,7 +8,7 @@ const toggleDropdown = () => {
 const { logUserOut } = useAuthStore();
 
 const logout = async () => {
-    debugger
+    
     await logUserOut();
 };
 </script>

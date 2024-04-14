@@ -1,5 +1,10 @@
 import axios from "axios";
 import appconst from "./appconst";
+import { useToast } from 'tailvue'
+let $toast = null
+if(process.client){
+  $toast = useToast()
+}
 const ajax = axios.create({
   baseURL: appconst.remoteServiceBaseUrl,
   timeout: 30000,
@@ -17,7 +22,8 @@ ajax.interceptors.request.use(
     return config;
   },
   function (error) {
-    return Promise.reject(error);
+    debugger
+    return error;
   }
 );
 ajax.interceptors.response.use(
@@ -35,7 +41,9 @@ ajax.interceptors.response.use(
     // setTimeout(()=>{
     //    vm.$Message.destroy();
     // },1000);
-    return Promise.reject(error);
+    debugger
+    $toast?.show({message: error.response.data.error.message, type: "danger"});
+    return error.response.data;
   }
 );
 export default ajax;

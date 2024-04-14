@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { TabulatorFull as Tabulator } from "tabulator-tables"; //import Tabulator library
 import appconst from "../../lib/appconst";
 const table = ref(null); //reference to your table element
@@ -12,6 +12,8 @@ const props = defineProps({
 });
 var params = ref(props.params);
 console.log(props.tableColumn);
+const reloadTable = () =>{
+}
 onMounted(() => {
   //instantiate Tabulator when element is mounted
   tabulator.value = new Tabulator(table.value, {
@@ -53,6 +55,12 @@ onMounted(() => {
       };
     },
   });
+
+  const { $bus } = useNuxtApp() as unknown as NuxtBus
+  $bus.$on('reloadTable', () => {
+    // do whatever you want with data 
+    tabulator.value.setData()
+  })
 });
 </script>
 
