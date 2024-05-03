@@ -16,7 +16,7 @@ export const useUserStore = defineStore("user", {
         // useFetch from nuxt 3
         debugger
         let res: any = await ajax.post('/api/User/Create',payload);
-        this.res = res
+        this.res = res.data
       },
       async getRoles() {
         // useFetch from nuxt 3

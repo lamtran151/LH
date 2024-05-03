@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import ajax from "~/lib/ajax";
 import PageRequest from "@/store/entities/page-request";
 import PageResult from "@/store/entities/page-result";
-import User from "~/store/entities/user";
-import Icon from "../../../components/custom/Icon.vue";
 import openModal, { Components } from "~/composables/openModal";
 import { DateTime } from 'luxon'
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '../../../store/modules/user';
-import PushButton from 'tailvue'
 window.DateTime = DateTime
 class PageUserRequest extends PageRequest {
   keyword: string;
@@ -24,10 +20,18 @@ let pageRequest: any = new PageUserRequest();
 const checkSquare = ref();
 const trash = ref();
 let user = ref();
-onMounted(() => {
+onMounted(async () => {
   $bus.$on('changeInput', (data: any) => {
     // do whatever you want with data 
     user = data;
+  })
+
+  await $bus.$on('checkValid', async (data: any) => {
+    // do whatever you want with data 
+    debugger
+    if(data){
+      saveData()
+    }
   })
 });
 const tableColumn = [
@@ -133,11 +137,18 @@ const tableColumn = [
 
 const save = async () => {
   debugger
+  await $bus.$emit("validate")
+
+}
+
+const saveData = async () => {
+  debugger
   await createUser(user)
-  if(res.value.success){
+  if (res.value.success) {
     $bus.$emit("reloadTable")
-    $bus.$emit("result", false)
+    $bus.$emit("result", true)
   }
+
 }
 // const fetchData = async () => {
 //   pagerequest.maxResultCount = data.value.limit;

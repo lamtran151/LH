@@ -4,6 +4,8 @@ import InputText from '../../../components/form/InputText.vue';
 import CreateUser from '../../../store/entities/users/CreateUser';
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '../../../store/modules/user';
+import { useForm } from 'vee-validate';
+import * as yup from 'yup';
 
 const createUser = reactive(new CreateUser());
 const { $bus } = useNuxtApp() as unknown as NuxtBus
@@ -16,8 +18,28 @@ const test = () => {
   $bus.$emit('clickEvent', createUser)
 }
 
+const { handleSubmit } = useForm({
+  validationSchema: yup.object({
+    userName: yup.string().required(),
+    name: yup.string().required(),
+    surname: yup.string().required(),
+    emailAddress: yup.string().required().email(),
+    password: yup.string().required(),
+    confirmPassword: yup.string().required().oneOf([yup.ref('password')]),
+  }),
+});
+
+const onSubmit = handleSubmit(values => {
+  debugger
+  $bus.$emit("checkValid", true)
+});
+
 onMounted(async () => {
   await getRoles();
+  await $bus.$on('validate', async () => {
+    debugger
+    await onSubmit()
+  })
 });
 
 </script>

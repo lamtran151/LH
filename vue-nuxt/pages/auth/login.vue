@@ -10,7 +10,7 @@ const { authenticateUser } = useAuthStore(); // use auth store
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
 const user = ref({
-    TenancyName: 'dhdemo',
+    TenancyName: 'PASV2',
     UserNameOrEmailAddress: '',
     Password: '',
 });
