@@ -37,11 +37,14 @@
     "@types/luxon": "^3.3.1",
     "@types/node": "^18",
     "@types/tabulator-tables": "^5.4.8",
+    "@types/lodash": "^4.17.1",
     "autoprefixer": "^10.4.14",
     "nuxt": "^3.6.2",
     "nuxt-vite": "^0.3.5",
     "postcss": "^8.4.25",
     "postcss-advanced-variables": "^3.0.1",
-    "sass": "^1.63.6"
+    "sass": "^1.63.6",
+    "lodash": "^4.17.21"
+
   }
 }

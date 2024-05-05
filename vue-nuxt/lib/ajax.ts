@@ -22,7 +22,7 @@ ajax.interceptors.request.use(
     return config;
   },
   function (error) {
-    debugger
+    
     return error;
   }
 );
@@ -41,7 +41,7 @@ ajax.interceptors.response.use(
     // setTimeout(()=>{
     //    vm.$Message.destroy();
     // },1000);
-    debugger
+    
     $toast?.show({message: error.response.data.error.message, type: "danger"});
     return error.response.data;
   }

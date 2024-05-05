@@ -2,13 +2,13 @@
   <label :for="id" class="form-label w-full flex flex-col sm:flex-row">
     {{ labelName }}
   </label>
-  <input :id="id" v-model="value" @input="$emit('update:modelValue', (<HTMLInputElement>$event?.target).value)" @change="changeInput"
-    type="text" :name="name" class="form-control" :placeholder="placeholder">
+  <input :id="id" @input="updateValue((<HTMLInputElement>$event?.target).value)" @change="changeInput"
+    type="text" :name="name" class="form-control" :placeholder="placeholder" :value="internalValue" @blur="updateBlur(internalValue)">
     <span class="text-red-500">{{ errorMessage }}</span>
 </template>
 
 <script setup lang="ts">
-import { useField } from 'vee-validate';
+import { useField, FieldOptions } from 'vee-validate';
 const props = defineProps({
   classLabel: String,
   labelName: String,
@@ -20,6 +20,8 @@ const props = defineProps({
   entity: Object,
   modelValue: String
 });
+
+let entityCopy = {...props.entity}
 const { $bus } = useNuxtApp() as unknown as NuxtBus
 
 const emits = defineEmits(['update:modelValue']);
@@ -28,5 +30,24 @@ const changeInput = () => {
   $bus.$emit("changeInput", props.entity)
 }
 
-const { value, errorMessage } = useField(() => props.name!);
+const { value: internalValue, errorMessage, handleBlur, handleChange } = useField<string>(
+      props.name!,
+      (value: any) => value,
+      props.modelValue as Partial<FieldOptions<string>>
+    );
+const updateValue = (value: any) => {
+  handleChange(value)
+  emits('update:modelValue', value)
+}
+
+const updateBlur = (value: any) => {
+  handleBlur(value)
+  emits('update:modelValue', value)
+}
+
+watchEffect(() => {
+  console.log(props?.entity)
+  console.log(internalValue.value)
+  updateValue(props?.entity![props?.name!]);
+});
 </script>

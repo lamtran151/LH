@@ -7,16 +7,12 @@ import { useUserStore } from '../../../store/modules/user';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 
-const createUser = reactive(new CreateUser());
+const createUser = ref(new CreateUser());
 const { $bus } = useNuxtApp() as unknown as NuxtBus
 
 const { getRoles } = useUserStore(); // use auth store
 
 const { roles } = storeToRefs(useUserStore());
-
-const test = () => {
-  $bus.$emit('clickEvent', createUser)
-}
 
 const { handleSubmit } = useForm({
   validationSchema: yup.object({
@@ -30,15 +26,24 @@ const { handleSubmit } = useForm({
 });
 
 const onSubmit = handleSubmit(values => {
-  debugger
+  
   $bus.$emit("checkValid", true)
 });
 
 onMounted(async () => {
   await getRoles();
   await $bus.$on('validate', async () => {
-    debugger
+    
     await onSubmit()
+  })
+
+  await $bus.$on('getById', async (data: any) => {
+    
+    createUser.value.UserName = data?._object?.res?.result?.userName
+    createUser.value.Name = data?._object?.res?.result?.name
+    createUser.value.Surname = data?._object?.res?.result?.surname
+    createUser.value.EmailAddress = data?._object?.res?.result?.emailAddress
+    createUser.value.IsActive = data?._object?.res?.result?.isActive
   })
 });
 
@@ -51,27 +56,27 @@ onMounted(async () => {
         <div class="grid grid-cols-2 gap-2">
           <div class="input-form">
             <InputText v-model="createUser.UserName" id="userName" label-name="UserName" placeholder="UserName"
-              :entity="createUser" name="userName" />
+              :entity="createUser" name="userName"/>
           </div>
           <div class="input-form">
             <InputText v-model="createUser.Name" id="name" label-name="Name" placeholder="Name" :entity="createUser"
-              name="name" />
+              name="Name" />
           </div>
           <div class="input-form">
             <InputText v-model="createUser.Surname" id="surname" label-name="Surname" placeholder="Surname"
-              :entity="createUser" name="surname" />
+              :entity="createUser" name="Surname" />
           </div>
           <div class="input-form">
             <InputText v-model="createUser.EmailAddress" id="emailAddress" label-name="EmailAddress"
-              placeholder="EmailAddress" :entity="createUser" name="emailAddress" />
+              placeholder="EmailAddress" :entity="createUser" name="EmailAddress" />
           </div>
           <div class="input-form">
             <InputText v-model="createUser.Password" id="password" label-name="Password" placeholder="Password"
-              :entity="createUser" name="password" />
+              :entity="createUser" name="Password" />
           </div>
           <div class="input-form">
             <InputText v-model="createUser.ConfirmPassword" id="confirmPassword" label-name="ConfirmPassword"
-              placeholder="confirmPassword" :entity="createUser" name="confirmPassword" />
+              placeholder="ConfirmPassword" :entity="createUser" name="ConfirmPassword" />
           </div>
           <div class="input-form">
             <InputCheckbox v-model="createUser.IsActive" id="isActive" label-name="IsActive" :entity="createUser" />
@@ -98,13 +103,13 @@ onMounted(async () => {
     <TabItem title="Tab 2" id="example-6">
       <form class="validate-form">
         <div class="grid grid-cols-2 gap-2">
-          <div class="input-form">
-            <template v-for="role in roles">
+          <template v-for="role in roles">
+            <div class="input-form">
               <InputCheckbox v-model="createUser.RoleNames" :id="'role' + role.id" :value="role.name"
                 :label-name="role.displayName" :is-multiple="true" name="RoleNames" :entity="createUser" />
-            </template>
+            </div>
+          </template>
 
-          </div>
         </div>
       </form> <!-- END: Validation Form -->
     </TabItem>

@@ -11,7 +11,7 @@ class PageUserRequest extends PageRequest {
   isActive: boolean = true;
 }
 const { $bus } = useNuxtApp() as unknown as NuxtBus
-const { createUser } = useUserStore();
+const { createUser, getUserById } = useUserStore();
 const { res } = storeToRefs(useUserStore());
 function handleOnClickOpenModal(component: Components) {
   openModal(component);
@@ -28,7 +28,7 @@ onMounted(async () => {
 
   await $bus.$on('checkValid', async (data: any) => {
     // do whatever you want with data 
-    debugger
+    
     if(data){
       saveData()
     }
@@ -87,9 +87,12 @@ const tableColumn = [
     headerHozAlign: "center",
     htmlOutput: true,
     formatter: (cell: any, formatterParams: any, onRendered: any) => {
-      const editFunc = () => {
+      const editFunc = async () => {
         // Xử lý logic khi nhấn vào nút "Edit"
+        
         console.log("Edit button clicked!");
+        handleOnClickOpenModal(Components.CreateUser)
+        await edit(cell._cell.row.data.id)
         // Ví dụ: điều hướng đến trang chỉnh sửa bản ghi
       };
 
@@ -136,19 +139,26 @@ const tableColumn = [
 ];
 
 const save = async () => {
-  debugger
+  
   await $bus.$emit("validate")
 
 }
 
 const saveData = async () => {
-  debugger
+  
   await createUser(user)
   if (res.value.success) {
     $bus.$emit("reloadTable")
     $bus.$emit("result", true)
   }
 
+}
+
+const edit = async (id: bigint) =>{
+  
+  await getUserById(id)
+  debugger
+  await $bus.$emit("getById", res)
 }
 // const fetchData = async () => {
 //   pagerequest.maxResultCount = data.value.limit;

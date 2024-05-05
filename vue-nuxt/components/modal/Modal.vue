@@ -7,7 +7,7 @@ const { isOpen, view, titles, actions } = storeToRefs(modal);
 const { $bus } = useNuxtApp() as unknown as NuxtBus
 $bus.$on('result', (data: any) => {
   // do whatever you want with data 
-  debugger
+  
   if (data)
     modal.close()
 })
