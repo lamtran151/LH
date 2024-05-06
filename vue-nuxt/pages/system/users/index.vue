@@ -157,7 +157,6 @@ const saveData = async () => {
 const edit = async (id: bigint) =>{
   
   await getUserById(id)
-  debugger
   await $bus.$emit("getById", res)
 }
 // const fetchData = async () => {

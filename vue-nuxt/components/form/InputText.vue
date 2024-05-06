@@ -2,12 +2,13 @@
   <label :for="id" class="form-label w-full flex flex-col sm:flex-row">
     {{ labelName }}
   </label>
-  <input :id="id" @input="updateValue((<HTMLInputElement>$event?.target).value)" @change="changeInput"
+  <input :id="id" @input="$emit('update:modelValue', (<HTMLInputElement>$event?.target).value)" @change="changeInput"
     type="text" :name="name" class="form-control" :placeholder="placeholder" :value="internalValue" @blur="updateBlur(internalValue)">
     <span class="text-red-500">{{ errorMessage }}</span>
 </template>
 
 <script setup lang="ts">
+import { json } from 'stream/consumers';
 import { useField, FieldOptions } from 'vee-validate';
 const props = defineProps({
   classLabel: String,
@@ -36,7 +37,7 @@ const { value: internalValue, errorMessage, handleBlur, handleChange } = useFiel
       props.modelValue as Partial<FieldOptions<string>>
     );
 const updateValue = (value: any) => {
-  handleChange(value)
+    handleChange(value)
   emits('update:modelValue', value)
 }
 
@@ -44,10 +45,16 @@ const updateBlur = (value: any) => {
   handleBlur(value)
   emits('update:modelValue', value)
 }
-
+// watch(() =>props?.entity![props?.name!], () => {
+//   console.log("entity: "+JSON.stringify(props?.entity))
+//   if(props?.entity![props?.name!]){
+//     updateValue(props?.entity![props?.name!]);
+//   }
+// })
 watchEffect(() => {
-  console.log(props?.entity)
-  console.log(internalValue.value)
-  updateValue(props?.entity![props?.name!]);
+  console.log("entity: "+JSON.stringify(props?.entity))
+  if(props?.entity![props?.name!]){
+    updateValue(props?.entity![props?.name!]);
+  }
 });
 </script>

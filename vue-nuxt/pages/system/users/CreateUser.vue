@@ -7,7 +7,7 @@ import { useUserStore } from '../../../store/modules/user';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 
-const createUser = ref(new CreateUser());
+const createUser = reactive(new CreateUser());
 const { $bus } = useNuxtApp() as unknown as NuxtBus
 
 const { getRoles } = useUserStore(); // use auth store
@@ -16,12 +16,12 @@ const { roles } = storeToRefs(useUserStore());
 
 const { handleSubmit } = useForm({
   validationSchema: yup.object({
-    userName: yup.string().required(),
-    name: yup.string().required(),
-    surname: yup.string().required(),
-    emailAddress: yup.string().required().email(),
-    password: yup.string().required(),
-    confirmPassword: yup.string().required().oneOf([yup.ref('password')]),
+    UserName: yup.string().required(),
+    Name: yup.string().required(),
+    Surname: yup.string().required(),
+    EmailAddress: yup.string().required().email(),
+    Password: yup.string().required(),
+    ConfirmPassword: yup.string().required().oneOf([yup.ref('password')]),
   }),
 });
 
@@ -31,19 +31,22 @@ const onSubmit = handleSubmit(values => {
 });
 
 onMounted(async () => {
+  console.log(createUser)
   await getRoles();
   await $bus.$on('validate', async () => {
     
     await onSubmit()
   })
-
+  await $bus.$off('getById')
   await $bus.$on('getById', async (data: any) => {
-    
-    createUser.value.UserName = data?._object?.res?.result?.userName
-    createUser.value.Name = data?._object?.res?.result?.name
-    createUser.value.Surname = data?._object?.res?.result?.surname
-    createUser.value.EmailAddress = data?._object?.res?.result?.emailAddress
-    createUser.value.IsActive = data?._object?.res?.result?.isActive
+    console.log(createUser)
+    console.log(data?._object?.res?.result)
+    createUser.UserName = createUser.UserName + data?._object?.res?.result
+    createUser.Name = data?._object?.res?.result?.name
+    createUser.Surname = data?._object?.res?.result?.surname
+    createUser.EmailAddress = data?._object?.res?.result?.emailAddress
+    createUser.IsActive = data?._object?.res?.result?.isActive
+    console.log(createUser)
   })
 });
 
@@ -56,7 +59,7 @@ onMounted(async () => {
         <div class="grid grid-cols-2 gap-2">
           <div class="input-form">
             <InputText v-model="createUser.UserName" id="userName" label-name="UserName" placeholder="UserName"
-              :entity="createUser" name="userName"/>
+              :entity="createUser" name="UserName"/>
           </div>
           <div class="input-form">
             <InputText v-model="createUser.Name" id="name" label-name="Name" placeholder="Name" :entity="createUser"
