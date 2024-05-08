@@ -2,8 +2,7 @@
 import { storeToRefs } from "pinia";
 import { useModal } from "../../store/modal";
 const modal = useModal();
-const { isOpen, view, titles, actions } = storeToRefs(modal);
-
+const { isOpen, view, titles, actions, data } = storeToRefs(modal);
 const { $bus } = useNuxtApp() as unknown as NuxtBus
 $bus.$on('result', (data: any) => {
   // do whatever you want with data 
@@ -30,7 +29,7 @@ const handleActionClick = (action: any) => {
 <template>
   <!-- BEGIN: Modal Content -->
   <div id="base_modal" class="modal fade" :class="modal.isOpen ? 'show' : ''" tabindex="-1" role="dialog"
-    :aria-labelledby="`create-user`" :aria-hidden="true"
+    :aria-hidden="true"
     style="margin-top: 0px; margin-left: 0px; padding-left: 0px; z-index: 55">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -49,7 +48,7 @@ const handleActionClick = (action: any) => {
         <!-- END: Modal Header -->
         <!-- BEGIN: Modal Body -->
         <div class="modal-body grid gap-4 gap-y-3">
-          <component v-if="modal.isOpen" :is="view" v-model="model"></component>
+          <component v-if="modal.isOpen" :is="view" v-model="model" :data="modal.data"></component>
         </div>
         <!-- END: Modal Body -->
         <!-- BEGIN: Modal Footer -->

@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-import { json } from 'stream/consumers';
 import { useField, FieldOptions } from 'vee-validate';
 const props = defineProps({
   classLabel: String,
@@ -45,16 +44,10 @@ const updateBlur = (value: any) => {
   handleBlur(value)
   emits('update:modelValue', value)
 }
-// watch(() =>props?.entity![props?.name!], () => {
-//   console.log("entity: "+JSON.stringify(props?.entity))
-//   if(props?.entity![props?.name!]){
-//     updateValue(props?.entity![props?.name!]);
-//   }
-// })
-watchEffect(() => {
+watch(() =>props?.entity![props?.name!], () => {
   console.log("entity: "+JSON.stringify(props?.entity))
   if(props?.entity![props?.name!]){
     updateValue(props?.entity![props?.name!]);
   }
-});
+})
 </script>

@@ -13,8 +13,8 @@ class PageUserRequest extends PageRequest {
 const { $bus } = useNuxtApp() as unknown as NuxtBus
 const { createUser, getUserById } = useUserStore();
 const { res } = storeToRefs(useUserStore());
-function handleOnClickOpenModal(component: Components) {
-  openModal(component);
+function handleOnClickOpenModal(component: Components, data?: Object) {
+  openModal(component, data);
 }
 let pageRequest: any = new PageUserRequest();
 const checkSquare = ref();
@@ -91,8 +91,8 @@ const tableColumn = [
         // Xử lý logic khi nhấn vào nút "Edit"
         
         console.log("Edit button clicked!");
-        handleOnClickOpenModal(Components.CreateUser)
         await edit(cell._cell.row.data.id)
+        handleOnClickOpenModal(Components.CreateUser, res.value?.result)
         // Ví dụ: điều hướng đến trang chỉnh sửa bản ghi
       };
 
@@ -157,7 +157,7 @@ const saveData = async () => {
 const edit = async (id: bigint) =>{
   
   await getUserById(id)
-  await $bus.$emit("getById", res)
+  // await $bus.$emit("getById", res)
 }
 // const fetchData = async () => {
 //   pagerequest.maxResultCount = data.value.limit;

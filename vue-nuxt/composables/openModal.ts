@@ -11,7 +11,7 @@ function getComponentData(component: Components): any {
   }
 }
 
-export default function openModal(passingComponent: Components): void {
+export default function openModal(passingComponent: Components, data?: Object) {
   const modal = useModal();
   const modalTitle: Record<Components, ModalTitle[]> = {
     CreateUser: [
@@ -40,10 +40,12 @@ export default function openModal(passingComponent: Components): void {
       },
     ],
   };
+  const dataEdit = ref(data);
 
   modal.open(
     getComponentData(passingComponent),
     modalTitle[passingComponent],
-    modalActions[passingComponent]
+    modalActions[passingComponent],
+    dataEdit
   );
 }

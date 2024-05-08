@@ -6,6 +6,12 @@ import { storeToRefs } from 'pinia';
 import { useUserStore } from '../../../store/modules/user';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
+const props = defineProps({
+  data: Object,
+  isOpen: Boolean
+});
+
+console.log(props.data)
 
 const createUser = reactive(new CreateUser());
 const { $bus } = useNuxtApp() as unknown as NuxtBus
@@ -26,7 +32,7 @@ const { handleSubmit } = useForm({
 });
 
 const onSubmit = handleSubmit(values => {
-  
+
   $bus.$emit("checkValid", true)
 });
 
@@ -34,20 +40,14 @@ onMounted(async () => {
   console.log(createUser)
   await getRoles();
   await $bus.$on('validate', async () => {
-    
+
     await onSubmit()
   })
-  await $bus.$off('getById')
-  await $bus.$on('getById', async (data: any) => {
-    console.log(createUser)
-    console.log(data?._object?.res?.result)
-    createUser.UserName = createUser.UserName + data?._object?.res?.result
-    createUser.Name = data?._object?.res?.result?.name
-    createUser.Surname = data?._object?.res?.result?.surname
-    createUser.EmailAddress = data?._object?.res?.result?.emailAddress
-    createUser.IsActive = data?._object?.res?.result?.isActive
-    console.log(createUser)
-  })
+  createUser.UserName = props.data?.userName
+  createUser.Name = props.data?.name
+  createUser.Surname = props.data?.surname
+  createUser.EmailAddress = props.data?.emailAddress
+  createUser.IsActive = props.data?.isActive
 });
 
 </script>
@@ -59,7 +59,7 @@ onMounted(async () => {
         <div class="grid grid-cols-2 gap-2">
           <div class="input-form">
             <InputText v-model="createUser.UserName" id="userName" label-name="UserName" placeholder="UserName"
-              :entity="createUser" name="UserName"/>
+              :entity="createUser" name="UserName" />
           </div>
           <div class="input-form">
             <InputText v-model="createUser.Name" id="name" label-name="Name" placeholder="Name" :entity="createUser"

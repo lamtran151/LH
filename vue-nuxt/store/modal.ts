@@ -5,6 +5,7 @@ export type Modal = {
   view: object;
   titles?: ModalTitle[];
   actions?: ModalAction[];
+  data?: Object;
 };
 
 export type ModalTitle = {
@@ -23,15 +24,17 @@ export const useModal = defineStore("modal", {
     view: shallowRef({}),
     titles: [],
     actions: [],
+    data : shallowRef({})
   }),
 
   actions: {
-    open(view: object, titles?: ModalTitle[], actions?: ModalAction[]) {
+    open(view: object, titles?: ModalTitle[], actions?: ModalAction[], data?: Object) {
       this.isOpen = true;
       this.actions = actions;
       this.titles = titles;
       // using markRaw to avoid over performance as reactive is not required
       this.view = markRaw(view);
+      this.data = data;
     },
 
     close() {
