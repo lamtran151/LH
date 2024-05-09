@@ -34,5 +34,9 @@ export const useUserStore = defineStore("user", {
         
         this.res = res.data;
       },
+      async updateUser(payload: any) {
+        let res: any = await ajax.put('/api/User/Update',payload);
+        this.res = res.data
+      },
     },
   });

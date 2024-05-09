@@ -27,7 +27,7 @@ const { $bus } = useNuxtApp() as unknown as NuxtBus
 const emits = defineEmits(['update:modelValue']);
 
 const changeInput = () => {
-  $bus.$emit("changeInput", props.entity)
+  $bus.$emit("changeInput", ref(props.entity))
 }
 
 const { value: internalValue, errorMessage, handleBlur, handleChange } = useField<string>(

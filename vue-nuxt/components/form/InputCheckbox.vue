@@ -1,9 +1,10 @@
 <template>
-  <input :id="id" class="form-check-input" type="checkbox" @change="changeInput" :value="value">
+  <input :id="id" class="form-check-input" type="checkbox" @change="changeInput" :checked="isChecked" @blur="updateBlur(internalValue)">
   <label class="form-check-label" :for="id">{{ labelName }}</label>
 </template>
 
 <script setup lang="ts">
+import { useField, FieldOptions } from 'vee-validate';
 const props = defineProps({
   classLabel: String,
   labelName: String,
@@ -30,4 +31,39 @@ const changeInput = () => {
   emits('update:modelValue', value)
   $bus.$emit("changeInput", props.entity)
 }
+
+const updateValue = (value: any) => {
+    handleChange(value)
+  emits('update:modelValue', value)
+}
+
+const { value: internalValue, errorMessage, handleBlur, handleChange } = useField<string>(
+      props.name!,
+      (value: any) => value,
+      props.modelValue as Partial<FieldOptions<string>>
+    );
+
+    const updateBlur = (value: any) => {
+  handleBlur(value)
+  emits('update:modelValue', value)
+}
+
+// watch(() =>props?.entity![props?.name!], () => {
+//   console.log(props?.entity![props?.name!])
+//   updateValue(props?.entity![props?.name!]);
+// })
+const isChecked = computed(() => {
+  console.log(internalValue.value)
+  if(props.isMultiple){
+    return Array.isArray(props.modelValue) && props.modelValue?.includes(props?.value!.toUpperCase())
+  }
+  else{
+    return props.modelValue
+  }
+});
+
+watch(() => props?.entity![props?.name!], () => {
+  console.log(props?.entity![props?.name!]);
+  updateValue(props?.entity![props?.name!]);
+});
 </script>

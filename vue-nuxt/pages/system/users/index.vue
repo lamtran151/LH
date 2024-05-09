@@ -11,7 +11,7 @@ class PageUserRequest extends PageRequest {
   isActive: boolean = true;
 }
 const { $bus } = useNuxtApp() as unknown as NuxtBus
-const { createUser, getUserById } = useUserStore();
+const { createUser, getUserById, updateUser } = useUserStore();
 const { res } = storeToRefs(useUserStore());
 function handleOnClickOpenModal(component: Components, data?: Object) {
   openModal(component, data);
@@ -139,14 +139,17 @@ const tableColumn = [
 ];
 
 const save = async () => {
-  
   await $bus.$emit("validate")
-
 }
 
 const saveData = async () => {
-  
-  await createUser(user)
+  debugger
+  if(user.value?.Id){
+    await updateUser(user.value)
+  }
+  else{
+    await createUser(user)
+  }
   if (res.value.success) {
     $bus.$emit("reloadTable")
     $bus.$emit("result", true)
@@ -155,28 +158,8 @@ const saveData = async () => {
 }
 
 const edit = async (id: bigint) =>{
-  
   await getUserById(id)
-  // await $bus.$emit("getById", res)
 }
-// const fetchData = async () => {
-//   pagerequest.maxResultCount = data.value.limit;
-//   pagerequest.skipCount = data.value.offset;
-//   pagerequest.sorting = "";
-//   pagerequest.where = "";
-//   pagerequest.keyword = "";
-//   const response = await ajax.get(
-//     "/api/services/app/User/GetAll" +
-//       "?" +
-//       new URLSearchParams(pagerequest).toString()
-//   );
-//   const responseJson = response.data.result as PageResult<User>;
-//   console.log(responseJson);
-//   return {
-//     data: responseJson.items,
-//     totalData: responseJson.totalCount,
-//   };
-// };
 </script>
 <template>
   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">

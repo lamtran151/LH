@@ -3,5 +3,10 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "strictPropertyInitialization":false,
+    "lib": [
+      "dom",
+      "es7"
+   ],
+   "target": "es2016"
   }
 }

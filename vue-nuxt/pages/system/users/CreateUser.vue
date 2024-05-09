@@ -7,11 +7,8 @@ import { useUserStore } from '../../../store/modules/user';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 const props = defineProps({
-  data: Object,
-  isOpen: Boolean
+  data: Object
 });
-
-console.log(props.data)
 
 const createUser = reactive(new CreateUser());
 const { $bus } = useNuxtApp() as unknown as NuxtBus
@@ -26,13 +23,12 @@ const { handleSubmit } = useForm({
     Name: yup.string().required(),
     Surname: yup.string().required(),
     EmailAddress: yup.string().required().email(),
-    Password: yup.string().required(),
-    ConfirmPassword: yup.string().required().oneOf([yup.ref('password')]),
+    Password: props.data != undefined ? yup.string().notRequired() : yup.string().required(),
+    ConfirmPassword: props.data != undefined ? yup.string().notRequired() : yup.string().required().oneOf([yup.ref('Password')]),
   }),
 });
 
 const onSubmit = handleSubmit(values => {
-
   $bus.$emit("checkValid", true)
 });
 
@@ -40,14 +36,16 @@ onMounted(async () => {
   console.log(createUser)
   await getRoles();
   await $bus.$on('validate', async () => {
-
     await onSubmit()
   })
+  createUser.Id = props.data?.id
   createUser.UserName = props.data?.userName
   createUser.Name = props.data?.name
   createUser.Surname = props.data?.surname
   createUser.EmailAddress = props.data?.emailAddress
   createUser.IsActive = props.data?.isActive
+  createUser.RoleNames = props.data?.roleNames
+  console.log(createUser)
 });
 
 </script>
@@ -82,7 +80,7 @@ onMounted(async () => {
               placeholder="ConfirmPassword" :entity="createUser" name="ConfirmPassword" />
           </div>
           <div class="input-form">
-            <InputCheckbox v-model="createUser.IsActive" id="isActive" label-name="IsActive" :entity="createUser" />
+            <InputCheckbox v-model="createUser.IsActive" id="isActive" name="IsActive" label-name="IsActive" :entity="createUser" />
           </div>
         </div>
       </form> <!-- END: Validation Form -->
