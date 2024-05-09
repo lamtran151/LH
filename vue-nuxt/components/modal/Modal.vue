@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
 import { useModal } from "../../store/modal";
+import { debug } from "console";
 const modal = useModal();
 const { isOpen, view, titles, actions, data } = storeToRefs(modal);
 const { $bus } = useNuxtApp() as unknown as NuxtBus
@@ -21,6 +22,7 @@ const emit = defineEmits(['save', 'close']);
 const handleActionClick = (action: any) => {
   const { callback, ...data } = action;
   callback((event: any, payload: any) => {
+    debugger
     emit(event, payload);
   }, data.view)
 };

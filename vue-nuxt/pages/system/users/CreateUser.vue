@@ -33,7 +33,6 @@ const onSubmit = handleSubmit(values => {
 });
 
 onMounted(async () => {
-  console.log(createUser)
   await getRoles();
   await $bus.$on('validate', async () => {
     await onSubmit()
@@ -45,13 +44,12 @@ onMounted(async () => {
   createUser.EmailAddress = props.data?.emailAddress
   createUser.IsActive = props.data?.isActive
   createUser.RoleNames = props.data?.roleNames
-  console.log(createUser)
 });
 
 </script>
 <template>
   <Tab>
-    <TabItem title="Tab 1" id="example-5">
+    <TabItem title="User" id="user">
       <!-- BEGIN: Validation Form -->
       <form class="validate-form">
         <div class="grid grid-cols-2 gap-2">
@@ -71,11 +69,11 @@ onMounted(async () => {
             <InputText v-model="createUser.EmailAddress" id="emailAddress" label-name="EmailAddress"
               placeholder="EmailAddress" :entity="createUser" name="EmailAddress" />
           </div>
-          <div class="input-form">
+          <div class="input-form" v-if="createUser.Id">
             <InputText v-model="createUser.Password" id="password" label-name="Password" placeholder="Password"
               :entity="createUser" name="Password" />
           </div>
-          <div class="input-form">
+          <div class="input-form" v-if="createUser.Id">
             <InputText v-model="createUser.ConfirmPassword" id="confirmPassword" label-name="ConfirmPassword"
               placeholder="ConfirmPassword" :entity="createUser" name="ConfirmPassword" />
           </div>
@@ -84,24 +82,8 @@ onMounted(async () => {
           </div>
         </div>
       </form> <!-- END: Validation Form -->
-      <!-- BEGIN: Success Notification Content -->
-      <div id="success-notification-content" class="toastify-content hidden flex"> <i class="text-success"
-          data-lucide="check-circle"></i>
-        <div class="ml-4 mr-4">
-          <div class="font-medium">Registration success!</div>
-          <div class="text-slate-500 mt-1"> Please check your e-mail for further info! </div>
-        </div>
-      </div> <!-- END: Success Notification Content -->
-      <!-- BEGIN: Failed Notification Content -->
-      <div id="failed-notification-content" class="toastify-content hidden flex"> <i class="text-danger"
-          data-lucide="x-circle"></i>
-        <div class="ml-4 mr-4">
-          <div class="font-medium">Registration failed!</div>
-          <div class="text-slate-500 mt-1"> Please check the fileld form. </div>
-        </div>
-      </div> <!-- END: Failed Notification Content -->
     </TabItem>
-    <TabItem title="Tab 2" id="example-6">
+    <TabItem title="Roles" id="roles">
       <form class="validate-form">
         <div class="grid grid-cols-2 gap-2">
           <template v-for="role in roles">

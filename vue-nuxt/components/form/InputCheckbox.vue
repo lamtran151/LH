@@ -47,11 +47,6 @@ const { value: internalValue, errorMessage, handleBlur, handleChange } = useFiel
   handleBlur(value)
   emits('update:modelValue', value)
 }
-
-// watch(() =>props?.entity![props?.name!], () => {
-//   console.log(props?.entity![props?.name!])
-//   updateValue(props?.entity![props?.name!]);
-// })
 const isChecked = computed(() => {
   console.log(internalValue.value)
   if(props.isMultiple){

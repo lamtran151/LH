@@ -28,8 +28,8 @@ onMounted(async () => {
 
   await $bus.$on('checkValid', async (data: any) => {
     // do whatever you want with data 
-    
-    if(data){
+
+    if (data) {
       saveData()
     }
   })
@@ -89,7 +89,7 @@ const tableColumn = [
     formatter: (cell: any, formatterParams: any, onRendered: any) => {
       const editFunc = async () => {
         // Xử lý logic khi nhấn vào nút "Edit"
-        
+
         console.log("Edit button clicked!");
         await edit(cell._cell.row.data.id)
         handleOnClickOpenModal(Components.CreateUser, res.value?.result)
@@ -138,16 +138,20 @@ const tableColumn = [
   },
 ];
 
+const validateForm = async () => {
+  await $bus.$emit("validateForm")
+}
+
 const save = async () => {
-  await $bus.$emit("validate")
+  await validateForm()
 }
 
 const saveData = async () => {
   debugger
-  if(user.value?.Id){
+  if (user.value?.Id) {
     await updateUser(user.value)
   }
-  else{
+  else {
     await createUser(user)
   }
   if (res.value.success) {
@@ -157,7 +161,7 @@ const saveData = async () => {
 
 }
 
-const edit = async (id: bigint) =>{
+const edit = async (id: bigint) => {
   await getUserById(id)
 }
 </script>

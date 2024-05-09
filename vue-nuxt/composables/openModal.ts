@@ -34,6 +34,7 @@ export default function openModal(passingComponent: Components, data?: Object) {
         label: "Send",
         buttonClass: "btn-primary",
         callback: async (emit: (event: string, payload?: any) => void) => {
+          debugger
           await emit('save', /* optional payload */);
           // modal.close();
         },
