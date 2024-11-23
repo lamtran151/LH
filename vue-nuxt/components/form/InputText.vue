@@ -1,10 +1,11 @@
 <template>
-  <label :for="id" class="form-label w-full flex flex-col sm:flex-row">
+  <label :for="id" class="form-label w-full flex flex-col sm:flex-row" :class="classLabel">
     {{ labelName }}
   </label>
   <input :id="id" @input="$emit('update:modelValue', (<HTMLInputElement>$event?.target).value)" @change="changeInput"
-    type="text" :name="name" class="form-control" :placeholder="placeholder" :value="internalValue" @blur="updateBlur(internalValue)">
-    <span class="text-red-500">{{ errorMessage }}</span>
+    :type="type ?? 'text'" :name="name" class="form-control" :placeholder="placeholder" :value="internalValue"
+    @blur="updateBlur(internalValue)" :class="classInput">
+  <span v-if="!isSearch" class="text-red-500">{{ errorMessage }}</span>
 </template>
 
 <script setup lang="ts">
@@ -18,10 +19,10 @@ const props = defineProps({
   classInput: String,
   placeholder: String,
   entity: Object,
-  modelValue: String
+  modelValue: String,
+  isSearch: Boolean
 });
-
-let entityCopy = {...props.entity}
+let entityCopy = { ...props.entity }
 const { $bus } = useNuxtApp() as unknown as NuxtBus
 
 const emits = defineEmits(['update:modelValue']);
@@ -31,12 +32,12 @@ const changeInput = () => {
 }
 
 const { value: internalValue, errorMessage, handleBlur, handleChange } = useField<string>(
-      props.name!,
-      (value: any) => value,
-      props.modelValue as Partial<FieldOptions<string>>
-    );
+  props.name!,
+  (value: any) => value,
+  props.modelValue as Partial<FieldOptions<string>>
+);
 const updateValue = (value: any) => {
-    handleChange(value)
+  handleChange(value)
   emits('update:modelValue', value)
 }
 
@@ -44,10 +45,7 @@ const updateBlur = (value: any) => {
   handleBlur(value)
   emits('update:modelValue', value)
 }
-watch(() =>props?.entity![props?.name!], () => {
-  console.log("entity: "+JSON.stringify(props?.entity))
-  if(props?.entity![props?.name!]){
-    updateValue(props?.entity![props?.name!]);
-  }
+watch(() => props?.entity![props?.name!], () => {
+  updateValue(props?.entity![props?.name!]);
 })
 </script>

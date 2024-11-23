@@ -1,5 +1,4 @@
 
-import { title } from 'process';
 <script lang="ts" setup>
     interface Item {
         title: string;

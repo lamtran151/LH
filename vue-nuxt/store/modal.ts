@@ -14,6 +14,7 @@ export type ModalTitle = {
 
 export type ModalAction = {
   label: string;
+  isLoading: boolean;
   buttonClass?: string;
   callback: (props?: any) => void;
 };
@@ -43,6 +44,7 @@ export const useModal = defineStore("modal", {
       this.view = {};
       this.titles = [];
       this.actions = [];
+      this.data = {};
     },
   },
 });

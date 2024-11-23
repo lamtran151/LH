@@ -369,6 +369,9 @@ declare namespace abp {
 
         function buildQueryString(parameterInfos: INameValue[], includeQuestionMark?: boolean): string;
 
+        function createSvgElement(svgHtml: any): ChildNode;
+        function createButton(className: string, name: string, svgHtml: any, callback: Function): HTMLAnchorElement;
+
         /**
         * Sets a cookie value for given key.
         * This is a simple implementation created to be used by ABP.

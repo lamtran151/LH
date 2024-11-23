@@ -8,35 +8,43 @@ import ResResult from "../entities/res-result";
 import User from "../entities/users/user";
 
 export const useUserStore = defineStore("user", {
-    state: () => ({
-        res: new ResResult,
-        roles: new Array<Role>()
-    }),
-    actions: {
-      async createUser(payload: any) {
-        // useFetch from nuxt 3
-        
-        let res: any = await ajax.post('/api/User/Create',payload);
-        this.res = res.data
-      },
-      async getRoles() {
-        // useFetch from nuxt 3
-        let res = await ajax.get('/api/User/GetRoles');
-        this.roles = res.data.result.items as Role[];
-      },
-      async getUserById(id: bigint) {
-        // useFetch from nuxt 3
-        let res = await ajax.get('/api/User/GetById', {
-          params: {
-            id: id
-          }
-        });
-        
-        this.res = res.data;
-      },
-      async updateUser(payload: any) {
-        let res: any = await ajax.put('/api/User/Update',payload);
-        this.res = res.data
-      },
+  state: () => ({
+    res: new ResResult,
+    roles: new Array<Role>()
+  }),
+  actions: {
+    async createUser(payload: any) {
+      // useFetch from nuxt 3
+
+      let res: any = await ajax.post('/api/User/Create', payload);
+      this.res = res.data
     },
-  });
+    async getRoles() {
+      // useFetch from nuxt 3
+      let res = await ajax.get('/api/User/GetRoles');
+      this.roles = res.data.result.items as Role[];
+    },
+    async getUserById(id: bigint) {
+      // useFetch from nuxt 3
+      let res = await ajax.get('/api/User/GetById', {
+        params: {
+          id: id
+        }
+      });
+
+      this.res = res.data;
+    },
+    async updateUser(payload: any) {
+      let res: any = await ajax.put('/api/User/Update', payload);
+      this.res = res.data
+    },
+    async deleteUser(id: bigint) {
+      let res: any = await ajax.delete('/api/User/Delete', {
+        params: {
+          id: id
+        }
+      });
+      this.res = res.data
+    },
+  },
+});

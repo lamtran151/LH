@@ -20,7 +20,6 @@ const filterMenuByPermission = (menuList:any) => {
       item.submenu = filterMenuByPermission(item.submenu);
     }
   });
-console.log(filteredMenu)
   return filteredMenu;
 };
 

@@ -1,5 +1,6 @@
 <template>
-  <input :id="id" class="form-check-input" type="checkbox" @change="changeInput" :checked="isChecked" @blur="updateBlur(internalValue)">
+  <input :id="id" class="form-check-input" type="checkbox" @change="changeInput" :checked="isChecked"
+    @blur="updateBlur(internalValue)">
   <label class="form-check-label" :for="id">{{ labelName }}</label>
 </template>
 
@@ -14,7 +15,7 @@ const props = defineProps({
   name: String,
   value: String,
   isMultiple: Boolean,
-  modelValue: [Boolean,Array<String>]
+  modelValue: [Boolean, Array<String>]
 });
 const { $bus } = useNuxtApp() as unknown as NuxtBus
 
@@ -22,10 +23,16 @@ const emits = defineEmits(['update:modelValue']);
 
 const changeInput = () => {
   let value
-  if(props.isMultiple){
-    value = props?.entity?.[props.name!] == undefined ? [(<HTMLInputElement>event?.target).value] : [...props?.entity?.[props.name!], (<HTMLInputElement>event?.target).value]
+  debugger
+  if (props.isMultiple) {
+    if(Array.isArray(props.modelValue) && props?.modelValue.includes(props?.value?.toUpperCase()!)){
+      value = props?.entity?.[props.name!].filter((c : string) => c !== props?.value?.toUpperCase())
+    }
+    else{
+      value = props?.entity?.[props.name!] == undefined ? [props?.value?.toUpperCase()] : [...props?.entity?.[props.name!], props?.value?.toUpperCase()]
+    }
   }
-  else{
+  else {
     value = (<HTMLInputElement>event?.target).checked
   }
   emits('update:modelValue', value)
@@ -33,32 +40,29 @@ const changeInput = () => {
 }
 
 const updateValue = (value: any) => {
-    handleChange(value)
+  handleChange(value)
   emits('update:modelValue', value)
 }
 
 const { value: internalValue, errorMessage, handleBlur, handleChange } = useField<string>(
-      props.name!,
-      (value: any) => value,
-      props.modelValue as Partial<FieldOptions<string>>
-    );
+  props.name!,
+  (value: any) => value
+);
 
-    const updateBlur = (value: any) => {
+const updateBlur = (value: any) => {
   handleBlur(value)
   emits('update:modelValue', value)
 }
 const isChecked = computed(() => {
-  console.log(internalValue.value)
-  if(props.isMultiple){
+  if (props.isMultiple) {
     return Array.isArray(props.modelValue) && props.modelValue?.includes(props?.value!.toUpperCase())
   }
-  else{
+  else {
     return props.modelValue
   }
 });
 
 watch(() => props?.entity![props?.name!], () => {
-  console.log(props?.entity![props?.name!]);
   updateValue(props?.entity![props?.name!]);
 });
 </script>
